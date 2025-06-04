@@ -1,0 +1,112 @@
+FRED'S STORE - GETTING STARTED GUIDE
+===============================
+
+This guide will help you set up and run Fred's Store application on your local machine.
+
+1. PREREQUISITES
+---------------
+- Python 3.8 or higher
+- pip (Python package manager)
+- Node.js and npm (for MCP integration)
+- Git
+
+2. CLONE THE REPOSITORY
+----------------------
+```bash
+git clone https://github.com/[your-username]/fred_store.git
+cd fred_store
+```
+
+3. SET UP PYTHON VIRTUAL ENVIRONMENT
+----------------------------------
+# On Windows:
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+# On macOS/Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+4. INSTALL DEPENDENCIES
+----------------------
+```bash
+pip install -r requirements.txt
+```
+
+5. DATABASE SETUP
+----------------
+The application uses SQLite by default. The database will be automatically created
+when you first run the application. No additional setup is required.
+
+6. CONFIGURE MCP (Model Context Protocol)
+---------------------------------------
+Create or update your VS Code settings.json with the following MCP configuration:
+
+```json
+{
+    "mcp": {
+        "servers": {
+            "fred_store_mcp_server": {
+                "url": "http://localhost:5002/mcp"
+            }
+        }
+    }
+}
+```
+
+7. START THE APPLICATION
+-----------------------
+# Start the FastAPI server:
+```bash
+uvicorn app:app --host 0.0.0.0 --port 5002 --reload
+```
+
+The application will be available at:
+- Main API: http://localhost:5002
+- API Documentation: http://localhost:5002/docs
+- Alternative API Documentation: http://localhost:5002/redoc
+
+8. TESTING THE APPLICATION
+-------------------------
+To run the tests:
+```bash
+pytest
+```
+
+9. AVAILABLE ENDPOINTS
+---------------------
+Main endpoints:
+- Users: /users
+- Products: /products
+- Orders: /orders
+- Subscriptions: /subscriptions
+
+For detailed API documentation, visit http://localhost:5002/docs after starting the server.
+
+10. TROUBLESHOOTING
+------------------
+1. If port 5002 is already in use:
+   - Change the port number in the uvicorn command
+   - Update the MCP configuration accordingly
+
+2. If dependencies fail to install:
+   - Ensure you're using the correct Python version
+   - Try updating pip: pip install --upgrade pip
+   - Install dependencies one by one to identify problematic packages
+
+3. If database errors occur:
+   - Delete the existing database file (if any)
+   - Restart the application to create a fresh database
+
+11. DEVELOPMENT WORKFLOW
+-----------------------
+1. Activate virtual environment before starting development
+2. Run tests before committing changes
+3. Use the API documentation to understand available endpoints
+4. Check the console for error messages and debugging
+
+For additional help or reporting issues, please visit the repository's Issues page. 
