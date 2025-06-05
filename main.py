@@ -13,9 +13,7 @@ from database import engine, get_db
 import models
 import db_models
 from db_models import User, Product, Order, OrderItem, Subscription
-
-# Create database tables
-db_models.Base.metadata.create_all(bind=engine)
+from init_db import init_db
 
 class PrettyJSONResponse(JSONResponse):
     def render(self, content) -> bytes:
@@ -51,6 +49,11 @@ mcp = FastApiMCP(
 
 # Mount the MCP server
 mcp.mount()
+
+@app.on_event("startup")
+async def startup_event():
+    # Create tables and initialize sample data
+    init_db()
 
 @app.get("/")
 def read_root():
@@ -247,4 +250,4 @@ def get_user_subscriptions(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return user.subscriptions 
+    return user.subscriptions

@@ -37,6 +37,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+pip install git+https://github.com/tadata-org/fastapi_mcp.git
+
 5. DATABASE SETUP
 ----------------
 The application uses SQLite by default. The database will be automatically created
